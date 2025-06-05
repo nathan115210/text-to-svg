@@ -5,10 +5,3 @@
 @use 'core/variables' as *; // colour + spacing tokens
 @use 'core/mixins' as *; // helper mixins
 @use 'core/base'; // body, headings, links
-
-/* ── Tailwind base layer ─────────────────────── */
-@tailwind base;
-
-/* ── Tailwind component & utilities layers ───────────────────── */
-@tailwind components;
-@tailwind utilities;
