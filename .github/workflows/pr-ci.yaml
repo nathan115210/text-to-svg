@@ -22,7 +22,6 @@ jobs:
   #-----------------------------------------------------------------------
   lint:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -32,7 +31,11 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: corepack enable
+      # Install pnpm (latest v8) and add to PATH
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
 
       # Install deps (fail fast if lock file out of sync)
       - run: pnpm install --frozen-lockfile
@@ -44,7 +47,6 @@ jobs:
   build:
     needs: lint          # Run only if lint job passed
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node 20.x & pnpm cache
@@ -53,8 +55,12 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: corepack enable
-      # Install deps (fail fast if lock file out of sync)
+      # Install pnpm and add to PATH
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - run: pnpm install --frozen-lockfile
 
       - name: Build (Next 15 + Vite)
@@ -64,7 +70,6 @@ jobs:
   test:
     needs: lint          # Run in parallel with build once lint passes
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node 20.x & pnpm cache
@@ -73,8 +78,12 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - run: corepack enable
-      # Install deps (fail fast if lock file out of sync)
+      # Install pnpm and add to PATH
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - run: pnpm install --frozen-lockfile
 
       - name: Unit tests (Vitest)
