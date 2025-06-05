@@ -1,8 +1,8 @@
 # Text-to-SVG Web App
 
 [![MIT License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/your-org/text-to-svg/ci.yml?branch=main\&label=CI)](https://github.com/your-org/text-to-svg/actions)
-[![Built with Vite](https://img.shields.io/badge/Built%20with-Vite-646CFF?logo=vite\&logoColor=white)](https://vitejs.dev/)
+[![CI](https://img.shields.io/github/actions/workflow/status/your-org/text-to-svg/ci.yml?branch=main&label=CI)](https://github.com/your-org/text-to-svg/actions)
+[![Built with Vite](https://img.shields.io/badge/Built%20with-Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 
 Text-to-SVG Web App is an easy‑to‑use tool that lets you turn any text into beautiful, customizable SVG images. Whether you're creating logos, social‑media graphics, or personalised designs, this app lets you adjust the font, size, and colour to fit your style. Preview in real‑time, then download the SVG or copy its code to use anywhere.
 
@@ -10,34 +10,36 @@ Text-to-SVG Web App is an easy‑to‑use tool that lets you turn any text into 
 
 ## Table of Contents
 
-* [Features](#features)
-* [Tech Stack](#tech-stack)
-* [Setup & Installation](#setup--installation)
-* [Usage](#usage)
-* [Scripts](#scripts)
-* [Testing](#testing)
-* [Deployment](#deployment)
-* [Contributing](#contributing)
-* [Author & Contact](#author--contact)
-* [License](#license)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Setup & Installation](#setup--installation)
+- [Usage](#usage)
+- [Scripts](#scripts)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Author & Contact](#author--contact)
+- [License](#license)
 
 ---
 
 ## Features
 
-* Convert input text to SVG with live preview
-* Select from **5 preloaded popular fonts** and load additional fonts via Google CDN
-* Customise font size and colour
-* Responsive SVG sizing:
+- Convert input text to SVG with live preview
+- Select from **5 preloaded popular fonts** and load additional fonts via Google CDN
+- Customise font size and colour
+- Responsive SVG sizing:
 
-  * **Fit‑to‑Content** (default)
-  * Manual width (px) with **aspect‑ratio lock**
-  * Quick **Small / Medium / Large** presets
-* Export options:
+  - **Fit‑to‑Content** (default)
+  - Manual width (px) with **aspect‑ratio lock**
+  - Quick **Small / Medium / Large** presets
 
-  * **Download SVG** file
-  * **Copy SVG code** to clipboard
-* *Future*: per‑glyph SVG‑path generation using **opentype.js**
+- Export options:
+
+  - **Download SVG** file
+  - **Copy SVG code** to clipboard
+
+- _Future_: per‑glyph SVG‑path generation using **opentype.js**
 
 ---
 
@@ -144,9 +146,9 @@ Pull requests are welcome! Please follow these guidelines:
 
 ## Author & Contact
 
-| Role       | Name            | Email                                                          | GitHub                                        |
-| ---------- |-----------------| -------------------------------------------------------------- |-----------------------------------------------|
-| Maintainer | **Zhao Hongyu** | [nathan\_115210@hotmail.com](mailto:nathan_115210@hotmail.com) | [Zhao Hongyu](https://github.com/nathan115210) |
+| Role       | Name            | Email                                                         | GitHub                                         |
+| ---------- | --------------- | ------------------------------------------------------------- | ---------------------------------------------- |
+| Maintainer | **Zhao Hongyu** | [nathan_115210@hotmail.com](mailto:nathan_115210@hotmail.com) | [Zhao Hongyu](https://github.com/nathan115210) |
 
 Feel free to reach out for questions, suggestions, or contributions.
 

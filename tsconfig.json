@@ -3,7 +3,7 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
     "allowJs": true,
     "skipLibCheck": true,
@@ -15,17 +15,24 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     },
-    "types": ["vitest/globals"]
+    "types": ["vitest/globals"],
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
-    "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".eslintrc.cjs",
+    "next-env.d.ts",
     "vite.config.ts",
-    "vitest.setup.ts"
+    "vitest.setup.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }

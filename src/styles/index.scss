@@ -1,0 +1,14 @@
+/* ── Your foundational SCSS partials ─────────────────────────── */
+@use 'core/reset'; // minimal reset / normalize
+@use 'core/theme'; // CSS variables + dark‑mode swap
+@use 'core/fonts'; // preload 5 Google fonts
+@use 'core/variables' as *; // colour + spacing tokens
+@use 'core/mixins' as *; // helper mixins
+@use 'core/base'; // body, headings, links
+
+/* ── Tailwind base layer ─────────────────────── */
+@tailwind base;
+
+/* ── Tailwind component & utilities layers ───────────────────── */
+@tailwind components;
+@tailwind utilities;

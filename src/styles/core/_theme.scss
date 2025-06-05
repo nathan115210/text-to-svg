@@ -1,0 +1,14 @@
+/* Fallback in case Tailwind plugin fails – mirrors the same CSS vars */
+:root {
+  --color-primary: #007bff;
+  --color-accent: #ffb703;
+  --color-bg: #f9fafb;
+  --color-text: #212529;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0a0a0a;
+    --color-text: #fff;
+  }
+}

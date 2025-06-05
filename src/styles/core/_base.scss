@@ -1,0 +1,22 @@
+@use './variables' as *;
+@use './fonts';
+
+body {
+  background: var(--background, var(--color-bg));
+  color: var(--foreground, var(--color-text));
+  font-family: $font-base;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  margin: 0 0 map-get($space, 3);
+}

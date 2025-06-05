@@ -1,0 +1,20 @@
+// Flexbox centring helper
+@mixin flex-center($dir: row) {
+  display: flex;
+  flex-direction: $dir;
+  justify-content: center;
+  align-items: center;
+}
+
+// Media-query shortcut: @include mq("md") { ... }
+$breakpoints: (
+  'sm': 30rem,
+  'md': 48rem,
+  'lg': 64rem,
+);
+
+@mixin mq($bp) {
+  @media (min-width: map-get($breakpoints, $bp)) {
+    @content;
+  }
+}
