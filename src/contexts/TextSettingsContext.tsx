@@ -1,8 +1,17 @@
 'use client';
 
-import React, { createContext, useContext, useReducer } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  type ReactNode,
+  type Dispatch,
+} from 'react';
 import { SetterType } from '@/utils/types';
 
+/** ------------------------------
+ * Types
+ --------------------------------- */
 export type TextSettings = {
   text: string;
   fontFamily: string;
@@ -14,6 +23,20 @@ type Action =
   | { type: SetterType.SetFontFamily; payload: string }
   | { type: SetterType.SetFontSize; payload: number };
 
+type TextSettingsContextType = [TextSettings, Dispatch<Action>];
+
+/** ------------------------------
+ * Constants
+ --------------------------------- */
+const defaultTextSettings: TextSettings = {
+  text: '',
+  fontFamily: 'Inter',
+  fontSize: 16,
+};
+
+/** ------------------------------
+ * Reducer
+ --------------------------------- */
 function settingsReducer(state: TextSettings, action: Action): TextSettings {
   switch (action.type) {
     case SetterType.SetText:
@@ -27,24 +50,18 @@ function settingsReducer(state: TextSettings, action: Action): TextSettings {
   }
 }
 
-const TextSettingsCtx = createContext<
-  [TextSettings, React.Dispatch<Action>] | undefined
->(undefined);
+/** ------------------------------
+ * Context
+ --------------------------------- */
+const TextSettingsCtx = createContext<TextSettingsContextType | undefined>(
+  undefined,
+);
 
-const defaultTextSettings: TextSettings = {
-  text: '',
-  fontFamily: 'Inter',
-  fontSize: 16,
-};
-
-export function TextSettingsProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+/** ------------------------------
+ * Provider
+ --------------------------------- */
+export function TextSettingsProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(settingsReducer, defaultTextSettings);
-
-  console.log('data', state);
 
   return (
     <TextSettingsCtx.Provider value={[state, dispatch]}>
@@ -53,10 +70,13 @@ export function TextSettingsProvider({
   );
 }
 
-/* Convenience hook */
-export function useTextSettings() {
+/** ------------------------------
+ * Hook
+ --------------------------------- */
+export function useTextSettings(): TextSettingsContextType {
   const ctx = useContext(TextSettingsCtx);
-  if (!ctx)
+  if (!ctx) {
     throw new Error('useTextSettings must be used inside TextSettingsProvider');
-  return ctx; // [state, dispatch]
+  }
+  return ctx;
 }

@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'sass:map';
 
 // Flexbox centring helper
 @mixin flex-center($dir: row) {
@@ -15,8 +16,9 @@
 }
 
 // Quick spacing helper: space(3) → 1rem
+
 @function space($key) {
-  @return map-get($space, $key);
+  @return map.get($space, $key);
 }
 
 // Darkmode
