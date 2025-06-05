@@ -1,0 +1,81 @@
+name: PR CI – pnpm · Lint · Build · Test
+
+# -------------------------------------------------------------------------
+# Triggers
+# -------------------------------------------------------------------------
+on:
+  # Run for every commit pushed to the default branch (master)
+  push:
+    branches: [master]
+
+  # Run for every pull‑request event (open, sync, ready_for_review, etc.)
+  pull_request:
+
+  # Allow maintainers to run the job manually from the Actions tab
+  workflow_dispatch: {}
+
+# -------------------------------------------------------------------------
+# Jobs
+# -------------------------------------------------------------------------
+
+jobs:
+  #-----------------------------------------------------------------------
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node 20.x & pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: corepack enable
+
+      # Install deps (fail fast if lock file out of sync)
+      - run: pnpm install --frozen-lockfile
+
+      - name: ESLint
+        run: pnpm lint
+
+  #-----------------------------------------------------------------------
+  build:
+    needs: lint          # Run only if lint job passed
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node 20.x & pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: corepack enable
+      # Install deps (fail fast if lock file out of sync)
+      - run: pnpm install --frozen-lockfile
+
+      - name: Build (Next 15 + Vite)
+        run: pnpm build
+
+  #-----------------------------------------------------------------------
+  test:
+    needs: lint          # Run in parallel with build once lint passes
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node 20.x & pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: corepack enable
+      # Install deps (fail fast if lock file out of sync)
+      - run: pnpm install --frozen-lockfile
+
+      - name: Unit tests (Vitest)
+        run: pnpm test
