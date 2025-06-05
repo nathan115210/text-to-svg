@@ -5,3 +5,54 @@
 @use 'core/variables' as *; // colour + spacing tokens
 @use 'core/mixins' as *; // helper mixins
 @use 'core/base'; // body, headings, links
+
+:root {
+  /**
+    * Skeleton styles for loading placeholders.
+   */
+  --skeleton-background-color: #f0f0f0;
+  --skeleton-highlight-color: #e0e0e0;
+
+  /*
+  Dropdown styles for Select component.
+   */
+  --dropdown-bg: #ffffff;
+  --dropdown-fg: #111827;
+  --dropdown-border: #cbd5e1;
+  --dropdown-hover-border: #94a3b8;
+  --dropdown-header-bg: #f9fafb;
+  --dropdown-header-fg: #6b7280;
+  --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
+  --dropdown-divider: #e5e7eb;
+  --dropdown-scroll-thumb: #cbd5e1;
+  --dropdown-placeholder: #9ca3af;
+  --dropdown-hover-bg: #f3f4f6;
+  --dropdown-selected-bg: #f1f5f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /**
+    * Skeleton styles for loading placeholders.
+   */
+    --skeleton-background-color: #2e2e2e;
+    --skeleton-highlight-color: #3a3a3a;
+
+    /*
+ Dropdown styles for Select component.
+  */
+
+    --dropdown-bg: #1f2937;
+    --dropdown-fg: #f9fafb;
+    --dropdown-border: #374151;
+    --dropdown-hover-border: #4b5563;
+    --dropdown-header-bg: #111827;
+    --dropdown-header-fg: #d1d5db;
+    --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    --dropdown-divider: #374151;
+    --dropdown-scroll-thumb: #4b5563;
+    --dropdown-placeholder: #6b7280;
+    --dropdown-hover-bg: #374151;
+    --dropdown-selected-bg: #1e293b;
+  }
+}
