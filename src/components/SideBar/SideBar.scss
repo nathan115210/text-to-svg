@@ -1,0 +1,31 @@
+@use '@/styles/core/mixins' as mix;
+
+// Variables
+$sidebar-width: 260px;
+
+.sideBar {
+  border-right: 2px solid white;
+  display: flex;
+  width: $sidebar-width;
+  height: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding-right: 1rem;
+
+  & > ul {
+    list-style: none;
+  }
+
+  .heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: mix.space(4);
+  }
+
+  .listItem-group {
+    display: flex;
+    flex-direction: column;
+    gap: mix.space(2);
+    margin-bottom: mix.space(4);
+  }
+}

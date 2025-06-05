@@ -1,3 +1,5 @@
+import ClientIsland from '@/contexts/ClientIsland';
+
 import type { Metadata } from 'next';
 import React from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -28,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ClientIsland>{children}</ClientIsland>
       </body>
     </html>
   );

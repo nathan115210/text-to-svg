@@ -1,0 +1,75 @@
+@use '@/styles/core/mixins' as mix;
+
+$skeleton-variants: (
+  text: (
+    height: 1rem,
+    width: 12rem,
+    border-radius: 4px,
+  ),
+  image: (
+    height: 12rem,
+    width: 100%,
+    border-radius: 8px,
+  ),
+  // only if it's inside a container with width
+  button: (
+      height: 2.5rem,
+      width: 6rem,
+      border-radius: 0.25rem,
+    ),
+  card: (
+    height: 10rem,
+    width: 15rem,
+    border-radius: 0.5rem,
+  ),
+  circle: (
+    height: 3rem,
+    width: 3rem,
+    border-radius: 50%,
+  ),
+  rect: (
+    height: 6rem,
+    width: 10rem,
+    border-radius: 0.25rem,
+  ),
+  heading: (
+    height: 1.75rem,
+    width: 10rem,
+    border-radius: 0.25rem,
+  ),
+  select: (
+    height: 2.5rem,
+    width: 14.5rem,
+    border-radius: 0.375rem,
+  ),
+);
+
+.skeleton-wrapper {
+  display: inline-block;
+
+  .skeleton {
+    display: inline-block;
+    background-color: var(--skeleton-background-color);
+    animation: skeleton-fade 1.4s ease-in-out infinite;
+  }
+
+  @each $name, $style in $skeleton-variants {
+    &.#{$name} .skeleton {
+      @each $prop, $val in $style {
+        #{$prop}: #{$val};
+      }
+    }
+  }
+}
+
+@keyframes skeleton-fade {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
