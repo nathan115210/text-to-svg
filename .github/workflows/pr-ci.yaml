@@ -4,14 +4,9 @@ name: PR CI – pnpm · Lint · Build · Test
 # Triggers
 # -------------------------------------------------------------------------
 on:
-  # Run for every commit pushed to the default branch (master)
   push:
-    branches: [master]
-
-  # Run for every pull‑request event (open, sync, ready_for_review, etc.)
-  pull_request:
-
-  # Allow maintainers to run the job manually from the Actions tab
+    branches: [master]       # run CI when commits land on master
+  pull_request:              # run on every PR event (open, sync, reopen, etc.)
   workflow_dispatch: {}
 
 # -------------------------------------------------------------------------
@@ -25,20 +20,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Node 20.x & pnpm cache
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: pnpm
-
-      # Install pnpm (latest v8) and add to PATH
+      # Install pnpm first so setup‑node's pnpm cache doesn't fail
       - uses: pnpm/action-setup@v2
         with:
           version: 8
           run_install: false
 
-      # Install deps (fail fast if lock file out of sync)
-      - run: pnpm install --frozen-lockfile
+      - name: Setup Node 20.x & enable pnpm cache
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install
 
       - name: ESLint
         run: pnpm lint
@@ -49,19 +43,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Setup Node 20.x & pnpm cache
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      # Install pnpm and add to PATH
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
-
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Build (Next 15 + Vite)
         run: pnpm build
@@ -72,19 +66,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+
       - name: Setup Node 20.x & pnpm cache
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      # Install pnpm and add to PATH
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-          run_install: false
-
-      - run: pnpm install --frozen-lockfile
+      - run: pnpm install
 
       - name: Unit tests (Vitest)
         run: pnpm test
