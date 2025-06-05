@@ -60,13 +60,12 @@ Text-to-SVG Web App is an easy‑to‑use tool that lets you turn any text into 
 ## Setup & Installation
 
 > **Prerequisites**
-> • Node **18+**
-> • Git
+> • Node **20+**
 > • pnpm (**corepack enable**)
 
 ```bash
 # 1 · Clone the repository
-$ git clone https://github.com/<your-org>/text-to-svg.git
+$ git clone git@github.com:nathan115210/text-to-svg.git
 $ cd text-to-svg
 
 # 2 · Install dependencies
@@ -84,7 +83,7 @@ Start the Vite development server:
 pnpm dev
 ```
 
-Open **[http://localhost:5173](http://localhost:5173)** in your browser.
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 Edit files inside **/src** and Vite will hot‑reload the preview.
 
 ---
