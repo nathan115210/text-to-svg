@@ -7,7 +7,7 @@ import React, {
   type ReactNode,
   type Dispatch,
 } from 'react';
-import { SetterType } from '@/utils/types';
+import { FontVariant, SetterType } from '@/utils/types';
 
 /** ------------------------------
  * Types
@@ -16,12 +16,14 @@ export type TextSettings = {
   text: string;
   fontFamily: string;
   fontSize: number;
+  fontVariant: FontVariant;
 };
 
 type Action =
   | { type: SetterType.SetText; payload: string }
   | { type: SetterType.SetFontFamily; payload: string }
-  | { type: SetterType.SetFontSize; payload: number };
+  | { type: SetterType.SetFontSize; payload: number }
+  | { type: SetterType.SetFontVariant; payload: string };
 
 type TextSettingsContextType = [TextSettings, Dispatch<Action>];
 
@@ -30,8 +32,9 @@ type TextSettingsContextType = [TextSettings, Dispatch<Action>];
  --------------------------------- */
 const defaultTextSettings: TextSettings = {
   text: '',
-  fontFamily: 'Inter',
+  fontFamily: 'Inter', //TODO: check more, maybe make it to be  dynamic
   fontSize: 16,
+  fontVariant: FontVariant.REGULAR,
 };
 
 /** ------------------------------
@@ -45,6 +48,8 @@ function settingsReducer(state: TextSettings, action: Action): TextSettings {
       return { ...state, fontFamily: action.payload };
     case SetterType.SetFontSize:
       return { ...state, fontSize: action.payload };
+    case SetterType.SetFontVariant:
+      return { ...state, fontVariant: action.payload as FontVariant };
     default:
       return state;
   }
@@ -62,7 +67,7 @@ const TextSettingsCtx = createContext<TextSettingsContextType | undefined>(
  --------------------------------- */
 export function TextSettingsProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(settingsReducer, defaultTextSettings);
-
+  console.log('state', state);
   return (
     <TextSettingsCtx.Provider value={[state, dispatch]}>
       {children}

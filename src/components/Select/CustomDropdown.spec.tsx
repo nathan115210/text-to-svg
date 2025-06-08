@@ -15,7 +15,7 @@ describe('CustomDropdown Component', () => {
         options={options}
         value=""
         onChange={vi.fn()}
-        placeholder={placeholder}
+        defaultValue={placeholder}
         groupLabel={groupLabel}
       />,
     );
@@ -29,7 +29,7 @@ describe('CustomDropdown Component', () => {
         options={options}
         value="Roboto"
         onChange={vi.fn()}
-        placeholder={placeholder}
+        defaultValue={placeholder}
         groupLabel={groupLabel}
       />,
     );
@@ -43,7 +43,7 @@ describe('CustomDropdown Component', () => {
         options={options}
         value=""
         onChange={vi.fn()}
-        placeholder={placeholder}
+        defaultValue={placeholder}
         groupLabel={groupLabel}
       />,
     );
@@ -59,7 +59,7 @@ describe('CustomDropdown Component', () => {
         id="font-select"
         value=""
         onChange={handleChange}
-        placeholder="Select font"
+        defaultValue="Select font"
         options={['Roboto', 'Inter']}
         groupLabel="Fonts"
       />,

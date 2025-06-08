@@ -7,7 +7,7 @@ interface CustomDropdownProps {
   options: string[];
   value: string;
   onChange: (value: string) => void;
-  placeholder: string;
+  defaultValue: string;
   groupLabel?: string;
 }
 
@@ -16,7 +16,7 @@ const CustomDropdown = ({
   options,
   value,
   onChange,
-  placeholder,
+  defaultValue,
   groupLabel,
 }: CustomDropdownProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -45,8 +45,8 @@ const CustomDropdown = ({
         onClick={() => setIsOpen(!isOpen)}
         type="button"
       >
-        <span className={selectedOption ? 'selectedText' : 'placeholderText'}>
-          {selectedOption || placeholder}
+        <span className={selectedOption ? 'selectedText' : 'defaultValueText'}>
+          {selectedOption || defaultValue}
         </span>
         <ChevronDownIcon
           className={`dropdownIcon ${isOpen ? 'dropdownIconOpen' : ''}`}

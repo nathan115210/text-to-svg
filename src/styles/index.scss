@@ -25,7 +25,7 @@
   --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.07);
   --dropdown-divider: #e5e7eb;
   --dropdown-scroll-thumb: #cbd5e1;
-  --dropdown-placeholder: #9ca3af;
+  --dropdown-defaultValue: #9ca3af;
   --dropdown-hover-bg: #f3f4f6;
   --dropdown-selected-bg: #f1f5f9;
 }
@@ -51,7 +51,7 @@
     --dropdown-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
     --dropdown-divider: #374151;
     --dropdown-scroll-thumb: #4b5563;
-    --dropdown-placeholder: #6b7280;
+    --dropdown-defaultValue: #6b7280;
     --dropdown-hover-bg: #374151;
     --dropdown-selected-bg: #1e293b;
   }

@@ -8,7 +8,7 @@ export interface SelectProps {
   value: string;
   onChange: (value: string) => void; // ✅ updated type
   options: string[];
-  placeholder: string;
+  defaultValue: string;
   dropdownGroupLabel: string;
 }
 

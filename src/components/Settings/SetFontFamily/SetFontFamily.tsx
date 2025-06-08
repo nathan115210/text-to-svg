@@ -5,12 +5,14 @@ import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { SetterType } from '@/utils/types';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 import Select from '@/components/Select/Select';
+import { firstLetterToUpperCase } from '@/utils/helpers';
 
 const SetFontFamily = ({ label }: { label: string }) => {
+  const [data, setter] = useTextSettings();
   const [fonts, setFonts] = useState<string[] | null>(null);
-  const [selectedFont, setSelectedFont] = useState<string>('Inter');
+  const defaultValue = data.fontFamily || 'Inter';
+  const [selectedFont, setSelectedFont] = useState<string>(defaultValue);
   const id = React.useId();
-  const [, setter] = useTextSettings();
   const onChange = (value: string) => {
     setSelectedFont(value);
     setter({ type: SetterType.SetFontFamily, payload: value });
@@ -32,6 +34,7 @@ const SetFontFamily = ({ label }: { label: string }) => {
 
   return (
     <div>
+      {/*//TODO: move teh skeleton to the Layout.tsx*/}
       {!fonts ? (
         <Skeleton variant={SkeletonType.Select} />
       ) : (
@@ -42,7 +45,7 @@ const SetFontFamily = ({ label }: { label: string }) => {
             value={selectedFont}
             onChange={onChange}
             options={fonts}
-            placeholder="Select a font"
+            defaultValue={firstLetterToUpperCase(defaultValue)}
             dropdownGroupLabel="Fonts"
           />
         </>

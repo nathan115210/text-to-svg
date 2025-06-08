@@ -38,8 +38,8 @@
     color: var(--dropdown-fg);
   }
 
-  .placeholderText {
-    color: var(--dropdown-placeholder);
+  .defaultValueText {
+    color: var(--dropdown-defaultValue);
   }
 
   .dropdownIcon {
@@ -47,7 +47,7 @@
     transition: transform 0.2s ease;
     width: 1rem;
     height: 1rem;
-    stroke: var(--dropdown-placeholder);
+    stroke: var(--dropdown-defaultValue);
   }
 
   .dropdownIconOpen {
