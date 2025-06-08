@@ -1,0 +1,73 @@
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  .label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--field-fg);
+  }
+
+  /* Wrapper around input + suffix */
+  .inputWrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    background-color: var(--field-bg);
+    color: var(--field-fg);
+    border: 1px solid var(--field-border);
+    border-radius: var(--field-border-radius);
+    transition:
+      border 0.2s ease,
+      box-shadow 0.2s ease;
+
+    &:hover {
+      border-color: var(--field-hover-border);
+    }
+    &:focus-visible {
+      outline: 2px solid var(--field-hover-border);
+      outline-offset: 1px;
+    }
+
+    /* when there’s a suffix, bump right padding so text doesn't collide */
+    &.input--with-suffix {
+      padding-right: 2.5rem;
+    }
+
+    /* hide steppers */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    &[type='number'] {
+      -moz-appearance: textfield;
+    }
+  }
+
+  .suffix {
+    position: absolute;
+    right: 0.75rem; /* same as input’s horizontal padding */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.875rem;
+    color: var(--field-defaultValue); /* lighter shade for suffix */
+    pointer-events: none; /* click through to input */
+  }
+
+  .warning {
+    font-size: 0.75rem;
+    color: #92400e;
+    background-color: #fef3c7;
+    border: 1px solid #fde68a;
+    border-radius: var(--field-border-radius);
+    padding: 0.25rem 0.5rem;
+  }
+}

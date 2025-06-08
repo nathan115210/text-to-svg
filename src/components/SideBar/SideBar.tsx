@@ -5,6 +5,8 @@ import './SideBar.scss';
 import Logo from '@/components/Logo/Logo';
 import SetFontFamily from '@/components/Settings/SetFontFamily/SetFontFamily';
 import SetFontVariant from '@/components/Settings/SetFontVariant/SetFontVariant';
+import SetFontSize from '@/components/Settings/SetFontSize/SetFontSize';
+import SetText from '@/components/Settings/SetText/SetText';
 
 const SideBar = () => {
   return (
@@ -19,8 +21,12 @@ const SideBar = () => {
         <li>
           <SetFontVariant label="Font Variant" />
         </li>
-
-        <li></li>
+        <li>
+          <SetFontSize label={'Font Size'} />
+        </li>
+        <li>
+          <SetText label={'Text'} />
+        </li>
       </ul>
     </aside>
   );
