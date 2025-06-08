@@ -25,7 +25,7 @@ type Action =
   | { type: SetterType.SetFontSize; payload: number }
   | { type: SetterType.SetFontVariant; payload: string };
 
-type TextSettingsContextType = [TextSettings, Dispatch<Action>];
+export type TextSettingsContextType = [TextSettings, Dispatch<Action>];
 
 /** ------------------------------
  * Constants
