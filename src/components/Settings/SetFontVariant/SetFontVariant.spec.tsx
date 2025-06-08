@@ -1,32 +1,11 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import SetFontVariant from './SetFontVariant';
-import { describe, vi, it, expect, beforeEach } from 'vitest';
+import { describe, vi, it, expect } from 'vitest';
 import * as TextSettingsContext from '@/contexts/TextSettingsContext';
 import { FontVariant, SetterType } from '@/utils/types';
-import { SelectProps } from '@/components/Select/Select';
 import type { TextSettingsContextType } from '@/contexts/TextSettingsContext';
-
-// Mock Select component (optional - depends on your implementation)
-vi.mock('@/components/Select/Select', () => ({
-  default: ({ id, label, value, onChange, options }: SelectProps) => (
-    <div>
-      <label htmlFor={id}>{label}</label>
-      <select
-        id={id}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        data-testid="font-variant-select"
-      >
-        {options.map((opt: string) => (
-          <option key={opt} value={opt}>
-            {opt}
-          </option>
-        ))}
-      </select>
-    </div>
-  ),
-}));
+import { FakeProvider } from '@/utils/unitTest';
 
 describe('SetFontVariant', () => {
   const mockSetter = vi.fn();
@@ -41,6 +20,7 @@ describe('SetFontVariant', () => {
   ];
 
   beforeEach(() => {
+    vi.restoreAllMocks();
     vi.spyOn(TextSettingsContext, 'useTextSettings').mockReturnValue(
       mockContextValue,
     );
@@ -48,22 +28,59 @@ describe('SetFontVariant', () => {
 
   it('renders with default variant', () => {
     render(<SetFontVariant label="Font Variant" />);
-    const select = screen.getByTestId(
-      'font-variant-select',
-    ) as HTMLSelectElement;
-    expect(select.value).toBe('Regular');
+    const select = screen.getByTestId('font-variant-select');
+    expect(select).toHaveTextContent('Regular');
   });
 
   it('calls setter on variant change', () => {
     render(<SetFontVariant label="Font Variant" />);
-    const select = screen.getByTestId(
-      'font-variant-select',
-    ) as HTMLSelectElement;
+    const trigger = screen.getByTestId('font-variant-select');
 
-    fireEvent.change(select, { target: { value: 'Bold' } });
+    fireEvent.click(trigger); // open dropdown
+
+    const boldOption = screen.getByRole('button', { name: 'Bold' });
+    fireEvent.click(boldOption); // select Bold
+
     expect(mockSetter).toHaveBeenCalledWith({
       type: SetterType.SetFontVariant,
       payload: 'Bold',
     });
+  });
+
+  it('updates visible text after selection', () => {
+    render(
+      <FakeProvider>
+        <SetFontVariant label="Font Variant" />
+      </FakeProvider>,
+    );
+
+    const trigger = screen.getByTestId('font-variant-select');
+    expect(trigger).toHaveTextContent('Regular');
+
+    fireEvent.click(trigger);
+    const boldOption = screen.getByRole('button', { name: 'Bold' });
+    fireEvent.click(boldOption);
+
+    expect(trigger).toHaveTextContent('Bold');
+  });
+
+  it('updates context value after variant change', async () => {
+    render(
+      <FakeProvider>
+        <SetFontVariant label="Font Variant" />
+      </FakeProvider>,
+    );
+    const select = screen.getByTestId('font-variant-select');
+
+    // Initially, the value is 'Regular'
+    expect(select).toHaveTextContent('Regular');
+
+    // Change the variant
+    fireEvent.change(select, { target: { value: 'Bold' } });
+
+    // Re-render should reflect the updated state.
+    // Use findByTestId to wait for the update.
+    const updatedSelect = await screen.findByTestId('font-variant-select');
+    expect((updatedSelect as HTMLSelectElement).value).toBe('Bold');
   });
 });

@@ -6,10 +6,11 @@ export interface SelectProps {
   id: string;
   label: string;
   value: string;
-  onChange: (value: string) => void; // ✅ updated type
+  onChange: (value: string) => void;
   options: string[];
   defaultValue: string;
   dropdownGroupLabel: string;
+  'data-testid'?: string;
 }
 
 export default function Select(props: SelectProps) {

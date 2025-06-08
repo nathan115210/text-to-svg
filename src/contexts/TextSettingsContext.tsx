@@ -19,7 +19,7 @@ export type TextSettings = {
   fontVariant: FontVariant;
 };
 
-type Action =
+export type Action =
   | { type: SetterType.SetText; payload: string }
   | { type: SetterType.SetFontFamily; payload: string }
   | { type: SetterType.SetFontSize; payload: number }

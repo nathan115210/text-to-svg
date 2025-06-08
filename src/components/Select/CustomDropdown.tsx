@@ -9,16 +9,11 @@ interface CustomDropdownProps {
   onChange: (value: string) => void;
   defaultValue: string;
   groupLabel?: string;
+  'data-testid'?: string;
 }
 
-const CustomDropdown = ({
-  id,
-  options,
-  value,
-  onChange,
-  defaultValue,
-  groupLabel,
-}: CustomDropdownProps) => {
+const CustomDropdown = (props: CustomDropdownProps) => {
+  const { id, options, value, onChange, defaultValue, groupLabel } = props;
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
 
@@ -44,6 +39,7 @@ const CustomDropdown = ({
         className="dropdownTrigger"
         onClick={() => setIsOpen(!isOpen)}
         type="button"
+        data-testid={props['data-testid']}
       >
         <span className={selectedOption ? 'selectedText' : 'defaultValueText'}>
           {selectedOption || defaultValue}

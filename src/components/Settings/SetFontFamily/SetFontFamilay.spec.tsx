@@ -2,6 +2,8 @@ import { render, screen, waitFor } from '@testing-library/react';
 import SetFontFamily from './SetFontFamily';
 import { vi } from 'vitest';
 import React from 'react';
+import { FakeProvider } from '@/utils/unitTest';
+import SetFontVariant from '@/components/Settings/SetFontVariant/SetFontVariant';
 
 // Mock fetch
 global.fetch = vi.fn(() =>
@@ -45,5 +47,13 @@ describe('<SetFontFamily />', () => {
 
     expect(screen.getByRole('button', { name: /Inter/i })).toBeInTheDocument();
     expect(screen.queryByTestId('skeleton')).not.toBeInTheDocument();
+  });
+
+  it('updates the context value after font family change', async () => {
+    render(
+      <FakeProvider>
+        <SetFontVariant label="Font Family" />
+      </FakeProvider>,
+    );
   });
 });

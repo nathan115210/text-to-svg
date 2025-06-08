@@ -27,6 +27,7 @@ export default function SetFontVariant({ label }: { label: string }) {
       options={variantOptions}
       defaultValue={firstLetterToUpperCase(defaultVariant)}
       dropdownGroupLabel="Font Variant"
+      data-testid="font-variant-select"
     />
   );
 }
