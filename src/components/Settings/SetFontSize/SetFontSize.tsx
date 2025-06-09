@@ -2,7 +2,6 @@
 import InputBox from '@/components/InputBox/InputBox';
 import React from 'react';
 import { useTextSettings } from '@/contexts/TextSettingsContext';
-import { SetterType } from '@/utils/types';
 
 export default function SetFontSize({
   label,
@@ -11,14 +10,14 @@ export default function SetFontSize({
   label: string;
   unit?: string;
 }) {
-  const [settings, setter] = useTextSettings();
+  const { settings, fontSizeSetter } = useTextSettings();
   const defaultFontSize = settings.fontSize || 16;
   const [fontSize, setFontSize] = React.useState<number>(defaultFontSize);
 
   const onChangeHandler = (value: number | string) => {
     const n = typeof value === 'number' ? value : Number(value);
 
-    setter({ type: SetterType.SetFontSize, payload: n });
+    fontSizeSetter(n);
     setFontSize(n);
   };
   return (

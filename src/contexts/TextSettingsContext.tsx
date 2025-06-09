@@ -5,13 +5,19 @@ import React, {
   useContext,
   useReducer,
   type ReactNode,
-  type Dispatch,
+  useMemo,
+  useCallback,
 } from 'react';
 import { FontVariant, SetterType } from '@/utils/types';
 
-/** ------------------------------
- * Types
- --------------------------------- */
+/** ------ Action union ------ */
+export type Action =
+  | { type: SetterType.SetText; payload: string }
+  | { type: SetterType.SetFontFamily; payload: string }
+  | { type: SetterType.SetFontSize; payload: number }
+  | { type: SetterType.SetFontVariant; payload: FontVariant };
+
+/** ------ settings shape ------ */
 export type TextSettings = {
   text: string;
   fontFamily: string;
@@ -19,66 +25,88 @@ export type TextSettings = {
   fontVariant: FontVariant;
 };
 
-export type Action =
-  | { type: SetterType.SetText; payload: string }
-  | { type: SetterType.SetFontFamily; payload: string }
-  | { type: SetterType.SetFontSize; payload: number }
-  | { type: SetterType.SetFontVariant; payload: string };
-
-export type TextSettingsContextType = [TextSettings, Dispatch<Action>];
-
-/** ------------------------------
- * Constants
- --------------------------------- */
-const defaultTextSettings: TextSettings = {
-  text: '',
-  fontFamily: 'Inter', //TODO: check more, maybe make it to be  dynamic
+export const defaultTextSettings: TextSettings = {
+  text: 'Hello',
+  fontFamily: 'Inter',
   fontSize: 16,
   fontVariant: FontVariant.REGULAR,
 };
 
-/** ------------------------------
- * Reducer
- --------------------------------- */
-function settingsReducer(state: TextSettings, action: Action): TextSettings {
+/** ------ Reducer ------ */
+function settingsReducer(settings: TextSettings, action: Action): TextSettings {
   switch (action.type) {
     case SetterType.SetText:
-      return { ...state, text: action.payload };
+      return { ...settings, text: action.payload };
     case SetterType.SetFontFamily:
-      return { ...state, fontFamily: action.payload };
+      return { ...settings, fontFamily: action.payload };
     case SetterType.SetFontSize:
-      return { ...state, fontSize: action.payload };
+      return { ...settings, fontSize: action.payload };
     case SetterType.SetFontVariant:
-      return { ...state, fontVariant: action.payload as FontVariant };
+      return { ...settings, fontVariant: action.payload as FontVariant };
     default:
-      return state;
+      return settings;
   }
 }
 
-/** ------------------------------
- * Context
- --------------------------------- */
-const TextSettingsCtx = createContext<TextSettingsContextType | undefined>(
+export interface TextSettingsCtxProps {
+  settings: TextSettings;
+  textSetter: (t: string) => void;
+  fontFamilySetter: (f: string) => void;
+  fontSizeSetter: (n: number) => void;
+  fontVariantSetter: (v: FontVariant) => void;
+}
+
+/** ------ Context ------ */
+const TextSettingsCtx = createContext<TextSettingsCtxProps | undefined>(
   undefined,
 );
 
-/** ------------------------------
- * Provider
- --------------------------------- */
-export function TextSettingsProvider({ children }: { children: ReactNode }) {
-  const [state, dispatch] = useReducer(settingsReducer, defaultTextSettings);
-  console.log('state', state);
+/** ------ Provider ------ */
+function init(): TextSettings {
+  //TODO: read from localStorage or fallback to defaults
   return (
-    <TextSettingsCtx.Provider value={[state, dispatch]}>
+    JSON.parse(localStorage.getItem('textSettings')!) || defaultTextSettings
+  );
+}
+
+export function TextSettingsProvider({ children }: { children: ReactNode }) {
+  const [settings, dispatch] = useReducer(settingsReducer, undefined, init);
+
+  // Wrap dispatchers in stable callbacks
+  const textSetter = useCallback((t: string) => {
+    dispatch({ type: SetterType.SetText, payload: t });
+  }, []);
+  const fontFamilySetter = useCallback((f: string) => {
+    dispatch({ type: SetterType.SetFontFamily, payload: f });
+  }, []);
+  const fontSizeSetter = useCallback((n: number) => {
+    dispatch({ type: SetterType.SetFontSize, payload: n });
+  }, []);
+  const fontVariantSetter = useCallback((v: FontVariant) => {
+    dispatch({ type: SetterType.SetFontVariant, payload: v });
+  }, []);
+
+  // Memoize the context value
+  const value: TextSettingsCtxProps = useMemo(
+    () => ({
+      settings,
+      textSetter,
+      fontFamilySetter,
+      fontSizeSetter,
+      fontVariantSetter,
+    }),
+    [settings, textSetter, fontFamilySetter, fontSizeSetter, fontVariantSetter],
+  );
+
+  return (
+    <TextSettingsCtx.Provider value={value}>
       {children}
     </TextSettingsCtx.Provider>
   );
 }
 
-/** ------------------------------
- * Hook
- --------------------------------- */
-export function useTextSettings(): TextSettingsContextType {
+/** ------ Hook ------ */
+export function useTextSettings() {
   const ctx = useContext(TextSettingsCtx);
   if (!ctx) {
     throw new Error('useTextSettings must be used inside TextSettingsProvider');

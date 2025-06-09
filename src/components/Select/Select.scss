@@ -78,13 +78,25 @@
     flex-direction: column;
     max-height: calc(2rem * 4 + 1rem);
     overflow-y: auto;
-    padding-bottom: var(--field-padidng-block);
 
     mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     mask-composite: intersect;
 
     scrollbar-width: thin;
     scrollbar-color: var(--field-scroll-thumb) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--field-scroll-thumb);
+      border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
 
     &::-webkit-scrollbar {
       width: 6px;

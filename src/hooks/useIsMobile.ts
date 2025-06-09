@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 
 export function useIsMobile(breakpoint: number = 768): boolean {
   const [isMobile, setIsMobile] = useState(() => {
-    // initial SSR-safe read
     return typeof window !== 'undefined' && window.innerWidth <= breakpoint;
   });
 

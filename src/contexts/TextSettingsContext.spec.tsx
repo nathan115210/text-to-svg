@@ -2,35 +2,33 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import {
+  defaultTextSettings,
   TextSettingsProvider,
   useTextSettings,
 } from '@/contexts/TextSettingsContext';
-import { SetterType } from '@/utils/types';
+import { FontVariant } from '@/utils/types';
 import userEvent from '@testing-library/user-event';
 
 function ConsumerComponent() {
-  const [state, dispatch] = useTextSettings();
+  const {
+    settings,
+    fontVariantSetter,
+    fontSizeSetter,
+    fontFamilySetter,
+    textSetter,
+  } = useTextSettings();
+  const { text, fontSize, fontFamily, fontVariant } = settings;
   return (
     <div>
-      <p data-testid="text">{state.text}</p>
-      <p data-testid="font">{state.fontFamily}</p>
-      <p data-testid="size">{state.fontSize}</p>
-      <button
-        onClick={() => dispatch({ type: SetterType.SetText, payload: 'Hello' })}
-      >
-        Set Text
-      </button>
-      <button
-        onClick={() =>
-          dispatch({ type: SetterType.SetFontFamily, payload: 'Roboto' })
-        }
-      >
-        Set Font
-      </button>
-      <button
-        onClick={() => dispatch({ type: SetterType.SetFontSize, payload: 24 })}
-      >
-        Set Size
+      <p data-testid="text">{text}</p>
+      <p data-testid="font">{fontFamily}</p>
+      <p data-testid="size">{fontSize}</p>
+      <p data-testid="variant">{fontVariant}</p>
+      <button onClick={() => textSetter('Hello World')}>Set Text</button>
+      <button onClick={() => fontFamilySetter('Roboto')}>Set Font</button>
+      <button onClick={() => fontSizeSetter(24)}>Set Size</button>
+      <button onClick={() => fontVariantSetter(FontVariant.BOLD)}>
+        Set Variant
       </button>
     </div>
   );
@@ -44,9 +42,18 @@ describe('TextSettingsContext', () => {
       </TextSettingsProvider>,
     );
 
-    expect(screen.getByTestId('text').textContent).toBe('');
-    expect(screen.getByTestId('font').textContent).toBe('Inter');
-    expect(screen.getByTestId('size').textContent).toBe('16');
+    expect(screen.getByTestId('text').textContent).toBe(
+      defaultTextSettings.text,
+    );
+    expect(screen.getByTestId('font').textContent).toBe(
+      defaultTextSettings.fontFamily,
+    );
+    expect(screen.getByTestId('size').textContent).toBe(
+      String(defaultTextSettings.fontSize),
+    );
+    expect(screen.getByTestId('variant').textContent).toBe(
+      defaultTextSettings.fontVariant,
+    );
   });
 
   it('should update state when dispatching actions', async () => {
@@ -59,10 +66,12 @@ describe('TextSettingsContext', () => {
     await userEvent.click(screen.getByText('Set Text'));
     await userEvent.click(screen.getByText('Set Font'));
     await userEvent.click(screen.getByText('Set Size'));
+    await userEvent.click(screen.getByText('Set Variant'));
 
-    expect(screen.getByTestId('text').textContent).toBe('Hello');
+    expect(screen.getByTestId('text').textContent).toBe('Hello World');
     expect(screen.getByTestId('font').textContent).toBe('Roboto');
     expect(screen.getByTestId('size').textContent).toBe('24');
+    expect(screen.getByTestId('variant').textContent).toBe(FontVariant.BOLD);
   });
 
   it('should throw error if used outside provider', () => {

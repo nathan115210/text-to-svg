@@ -13,16 +13,15 @@ export interface SelectProps {
   'data-testid'?: string;
 }
 
-export default function Select(props: SelectProps) {
-  const { id, label, ...restProps } = props;
-
+const Select: React.FC<SelectProps> = ({ id, label, ...restProps }) => {
   return (
     <div className={'select'}>
       <label htmlFor={id} className="selectLabel">
         {label}
       </label>
-
       <CustomDropdown id={id} {...restProps} />
     </div>
   );
-}
+};
+
+export default React.memo(Select);

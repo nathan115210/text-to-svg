@@ -3,21 +3,22 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import SetFontVariant from './SetFontVariant';
 import { describe, vi, it, expect } from 'vitest';
 import * as TextSettingsContext from '@/contexts/TextSettingsContext';
-import { FontVariant, SetterType } from '@/utils/types';
-import type { TextSettingsContextType } from '@/contexts/TextSettingsContext';
+import {
+  defaultTextSettings,
+  TextSettingsCtxProps,
+} from '@/contexts/TextSettingsContext';
 import { FakeProvider } from '@/utils/unitTest';
+import { firstLetterToUpperCase } from '@/utils/helpers';
 
 describe('SetFontVariant', () => {
   const mockSetter = vi.fn();
-  const mockContextValue: TextSettingsContextType = [
-    {
-      fontFamily: 'Inter',
-      text: '',
-      fontSize: 16,
-      fontVariant: FontVariant.REGULAR,
-    },
-    mockSetter,
-  ];
+  const mockContextValue: TextSettingsCtxProps = {
+    settings: defaultTextSettings,
+    textSetter: vi.fn(),
+    fontFamilySetter: vi.fn(),
+    fontSizeSetter: vi.fn(),
+    fontVariantSetter: mockSetter,
+  };
 
   beforeEach(() => {
     vi.restoreAllMocks();
@@ -29,7 +30,9 @@ describe('SetFontVariant', () => {
   it('renders with default variant', () => {
     render(<SetFontVariant label="Font Variant" />);
     const select = screen.getByTestId('font-variant-select');
-    expect(select).toHaveTextContent('Regular');
+    expect(select).toHaveTextContent(
+      firstLetterToUpperCase(defaultTextSettings.fontVariant),
+    );
   });
 
   it('calls setter on variant change', () => {
@@ -41,10 +44,7 @@ describe('SetFontVariant', () => {
     const boldOption = screen.getByRole('button', { name: 'Bold' });
     fireEvent.click(boldOption); // select Bold
 
-    expect(mockSetter).toHaveBeenCalledWith({
-      type: SetterType.SetFontVariant,
-      payload: 'Bold',
-    });
+    expect(mockSetter).toHaveBeenCalledWith('Bold');
   });
 
   it('updates visible text after selection', () => {

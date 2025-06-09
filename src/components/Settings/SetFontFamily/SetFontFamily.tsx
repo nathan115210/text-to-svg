@@ -2,23 +2,22 @@
 
 import React from 'react';
 import { useTextSettings } from '@/contexts/TextSettingsContext';
-import { SetterType } from '@/utils/types';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 import Select from '@/components/Select/Select';
 import { firstLetterToUpperCase } from '@/utils/helpers';
 import { useFonts } from '@/hooks/useFonts';
 
 export default function SetFontFamily({ label }: { label: string }) {
-  const [data, setter] = useTextSettings();
+  const { settings, fontFamilySetter } = useTextSettings();
   const id = React.useId();
-  const defaultValue = data.fontFamily || 'Inter';
+  const defaultValue = settings.fontFamily || 'Inter';
   const [selectedFont, setSelectedFont] = React.useState(defaultValue);
 
   const fonts = useFonts(100);
 
   const onChange = (value: string) => {
     setSelectedFont(value);
-    setter({ type: SetterType.SetFontFamily, payload: value });
+    fontFamilySetter(value);
   };
 
   return (

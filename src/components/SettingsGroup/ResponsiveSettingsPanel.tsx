@@ -1,14 +1,13 @@
 'use client';
 
+import React from 'react';
 import { useIsMobile } from '@/hooks/useIsMobile';
 import BottomSheetModal from '@/components/BottomSheetModal/BottomSheetModal';
 import SideBar from '@/components/SideBar/SideBar';
 
-export default function ResponsiveSettingsPanel({
+const ResponsiveSettingsPanel: React.FC<{ children: React.ReactNode }> = ({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+}) => {
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -16,4 +15,6 @@ export default function ResponsiveSettingsPanel({
   } else {
     return <SideBar>{children}</SideBar>;
   }
-}
+};
+
+export default React.memo(ResponsiveSettingsPanel);
