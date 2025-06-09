@@ -1,0 +1,13 @@
+.sideBar {
+  display: flex;
+  width: var(--sidebar-width);
+  height: 100%;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding-right: 1rem;
+  background: var(--field-bg);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}

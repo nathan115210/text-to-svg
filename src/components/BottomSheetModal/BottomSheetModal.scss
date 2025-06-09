@@ -1,0 +1,56 @@
+$trigger-height: 2rem;
+
+.bottom-sheet-modal {
+  display: none;
+
+  /* full sheet height, but initially shifted down so only header shows */
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  transform: translateY(calc(100% - $trigger-height));
+  transition: transform 0.3s ease-in-out;
+  border: 2px solid var(--field-border);
+  border-bottom: none;
+  border-top-left-radius: var(--field-border-radius);
+  border-top-right-radius: var(--field-border-radius);
+  background: var(--field-bg);
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+
+  &.open {
+    transform: translateY(0);
+  }
+
+  .trigger {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $trigger-height;
+    cursor: pointer;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--field-hover-bg);
+    }
+  }
+
+  .sheet-content {
+    flex: 1;
+    overflow: auto;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out 0.1s;
+  }
+
+  &.open .sheet-content {
+    opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}

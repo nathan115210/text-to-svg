@@ -1,3 +1,6 @@
+@use 'variables' as *;
+@use 'sass:map';
+
 // Flexbox centring helper
 @mixin flex-center($dir: row) {
   display: flex;
@@ -6,15 +9,25 @@
   align-items: center;
 }
 
-// Media-query shortcut: @include mq("md") { ... }
-$breakpoints: (
-  'sm': 30rem,
-  'md': 48rem,
-  'lg': 64rem,
-);
-
 @mixin mq($bp) {
   @media (min-width: map-get($breakpoints, $bp)) {
     @content;
+  }
+}
+
+// Quick spacing helper: space(3) → 1rem
+
+@function space($key) {
+  @return map.get($space, $key);
+}
+
+// Darkmode
+@mixin darkmode {
+  @if (&) {
+    @media (prefers-color-scheme: dark) {
+      @content;
+    }
+  } @else {
+    @error "The Darkmode mixin must be used with a selector.";
   }
 }

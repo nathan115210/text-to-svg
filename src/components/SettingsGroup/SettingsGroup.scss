@@ -1,0 +1,21 @@
+@use '@/styles/core/mixins' as mix;
+
+.settings-group {
+  display: flex;
+  flex-direction: column;
+  padding: mix.space(2);
+  & > ul {
+    list-style: none;
+  }
+
+  .heading {
+    font-size: 1.25rem;
+  }
+
+  .listItem-group {
+    display: flex;
+    flex-direction: column;
+    gap: mix.space(4);
+    margin-bottom: mix.space(4);
+  }
+}
