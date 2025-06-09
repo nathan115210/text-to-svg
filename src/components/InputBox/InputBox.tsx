@@ -63,7 +63,7 @@ export default function InputBox({
 
       // Detect non-numeric formats (e.g. "+23", letters)
       // Regex: optional decimals, digits only
-      if (Number.isNaN(raw)) {
+      if (Number.isNaN(Number(raw))) {
         //TODO: create a helper to cover all /most cases
         setInputValue(raw);
         console.log('invalid');
