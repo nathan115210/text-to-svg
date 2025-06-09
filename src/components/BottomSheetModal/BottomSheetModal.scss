@@ -1,18 +1,20 @@
+$trigger-height: 2rem;
+
 .bottom-sheet-modal {
+  display: none;
+
   /* full sheet height, but initially shifted down so only header shows */
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 50vh;
-  transform: translateY(calc(100% - 2rem));
+  height: auto;
+  transform: translateY(calc(100% - $trigger-height));
   transition: transform 0.3s ease-in-out;
-
   border: 2px solid var(--field-border);
   border-bottom: none;
   border-top-left-radius: var(--field-border-radius);
   border-top-right-radius: var(--field-border-radius);
   background: var(--field-bg);
-  display: flex;
   flex-direction: column;
   overflow: hidden;
   z-index: 999;
@@ -25,7 +27,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2rem;
+    height: $trigger-height;
     cursor: pointer;
     padding: 0 1rem;
     font-size: 1rem;
@@ -46,5 +48,9 @@
 
   &.open .sheet-content {
     opacity: 1;
+  }
+
+  @media (max-width: 768px) {
+    display: flex;
   }
 }

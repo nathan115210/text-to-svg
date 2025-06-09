@@ -47,8 +47,6 @@ export default function InputBox({
   React.useEffect(() => {
     setInputValue(String(value));
     setWarning(null);
-
-    console.log('value', value, typeof value);
   }, [value]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

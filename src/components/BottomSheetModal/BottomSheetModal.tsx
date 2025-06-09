@@ -8,7 +8,7 @@ import { useClickOutside } from '@/hooks/useClickOutside';
 import { useEscapeKey } from '@/hooks/useEscapeKey';
 
 const BottomSheetModal = ({ children }: { children: React.ReactNode }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const sheetRef = useRef<HTMLDivElement>(null);
 
   // Toggle open/close when the button is clicked
