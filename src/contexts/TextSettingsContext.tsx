@@ -5,6 +5,7 @@ import React, {
   type ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useReducer,
 } from 'react';
@@ -22,6 +23,29 @@ export const defaultTextSettings: TextSettings = {
   fontSize: 16,
   fontVariant: FontVariant.REGULAR,
 };
+
+const textSettingsFallback: TextSettings = {
+  text: 'Hello',
+  fontFamily: 'Inter',
+  fontSize: 16,
+  fontVariant: FontVariant.REGULAR,
+};
+
+/* ------------------------------------------------------------------ */
+/* On first client render, try localStorage and merge                 */
+/* ------------------------------------------------------------------ */
+function loadInitial(): TextSettings {
+  if (typeof window === 'undefined') return textSettingsFallback; // SSR
+
+  try {
+    const raw = localStorage.getItem('textSettings');
+    return raw
+      ? { ...textSettingsFallback, ...JSON.parse(raw) }
+      : textSettingsFallback;
+  } catch {
+    return textSettingsFallback; // JSON parse error etc.
+  }
+}
 
 /** ------ Reducer ------ */
 function settingsReducer(settings: TextSettings, action: Action): TextSettings {
@@ -53,15 +77,21 @@ const TextSettingsCtx = createContext<TextSettingsCtxProps | undefined>(
 );
 
 /** ------ Provider ------ */
-function init(): TextSettings {
-  //TODO: read from localStorage or fallback to defaults
-  return (
-    JSON.parse(localStorage.getItem('textSettings')!) || defaultTextSettings
-  );
-}
 
 export function TextSettingsProvider({ children }: { children: ReactNode }) {
-  const [settings, dispatch] = useReducer(settingsReducer, undefined, init);
+  const [settings, dispatch] = useReducer(
+    settingsReducer,
+    undefined,
+    loadInitial,
+  );
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('textSettings', JSON.stringify(settings));
+    } catch {
+      /* ignore quota errors */
+    }
+  }, [settings]);
 
   // Wrap dispatchers in stable callbacks
   const textSetter = useCallback((t: string) => {
