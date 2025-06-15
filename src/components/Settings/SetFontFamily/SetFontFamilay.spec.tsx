@@ -10,7 +10,7 @@ import {
 } from 'vitest';
 
 import SetFontFamily from '@/components/Settings/SetFontFamily/SetFontFamily';
-import { FontVariant } from '@/utils/types';
+import { FontVariant } from '@/types/types';
 import * as TextSettingsContext from '@/contexts/TextSettingsContext';
 
 import { useFonts } from '@/hooks/useFonts';

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Select from '@/components/Select/Select';
-import { FontVariant } from '@/utils/types';
+import { FontVariant } from '@/types/types';
 import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { firstLetterToUpperCase } from '@/utils/helpers';
 

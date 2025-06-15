@@ -6,7 +6,7 @@ import {
   TextSettingsProvider,
   useTextSettings,
 } from '@/contexts/TextSettingsContext';
-import { FontVariant } from '@/utils/types';
+import { FontVariant } from '@/types/types';
 import userEvent from '@testing-library/user-event';
 
 function ConsumerComponent() {
