@@ -1,4 +1,4 @@
-// app/api/fonts/route.ts
+// api endpoint  => /api/fonts/route.ts
 import { NextResponse } from 'next/server';
 
 let fontsCache: string[] | null = null;

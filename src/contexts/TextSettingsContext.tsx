@@ -2,28 +2,19 @@
 
 import React, {
   createContext,
-  useContext,
-  useReducer,
   type ReactNode,
-  useMemo,
   useCallback,
+  useContext,
+  useMemo,
+  useReducer,
 } from 'react';
-import { FontVariant, SetterType } from '@/utils/types';
 
-/** ------ Action union ------ */
-export type Action =
-  | { type: SetterType.SetText; payload: string }
-  | { type: SetterType.SetFontFamily; payload: string }
-  | { type: SetterType.SetFontSize; payload: number }
-  | { type: SetterType.SetFontVariant; payload: FontVariant };
-
-/** ------ settings shape ------ */
-export type TextSettings = {
-  text: string;
-  fontFamily: string;
-  fontSize: number;
-  fontVariant: FontVariant;
-};
+import {
+  type Action,
+  FontVariant,
+  SetterType,
+  type TextSettings,
+} from '@/types/types';
 
 export const defaultTextSettings: TextSettings = {
   text: 'Hello',
