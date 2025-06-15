@@ -50,7 +50,7 @@ export async function loadFont(fontFamily: string): Promise<Font> {
 
   const font = opentype.parse(buffer);
 
-  // save new fecthed font to in-memory cache
+  // save new fetched font to in-memory cache
   fontsCache.set(key, font);
   return font;
 }
