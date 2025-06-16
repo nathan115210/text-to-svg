@@ -18,7 +18,7 @@ export default function SvgPreview() {
         setPath(null);
       }
     })();
-  }, [settings]); // Only re-run when fontFamily changes
+  }, [settings]);
 
   const filter =
     settings.fontVariant === FontVariant.BOLD
