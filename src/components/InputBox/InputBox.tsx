@@ -2,6 +2,7 @@
 
 import React from 'react';
 import './InputBox.scss';
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback';
 
 export enum InputWarningType {
   INVALID_NUMBER_VALUE = 'Value must be at least 1',
@@ -24,12 +25,15 @@ interface InputBoxProps
   name: string;
   placeholder?: string;
   suffix?: string;
+  /** ms delay before firing onChange (default 300) */
+  debounceMs?: number;
 }
 
 export default function InputBox({
   label,
   value,
   onChange,
+  debounceMs = 300,
   type = typeof value === 'number' ? 'number' : 'text',
   name,
   placeholder = '',
@@ -42,6 +46,7 @@ export default function InputBox({
 
   const [inputValue, setInputValue] = React.useState<string | number>(value);
   const [warning, setWarning] = React.useState<WarningKey | null>(null);
+  const debouncedEmit = useDebouncedCallback(onChange, debounceMs);
 
   // Sync if parent updates externally
   React.useEffect(() => {
@@ -57,7 +62,7 @@ export default function InputBox({
       if (raw === '') {
         setInputValue('');
         setWarning(required ? 'REQUIRED_FIELD' : null);
-        onChange('');
+        debouncedEmit('');
         return;
       }
 
@@ -84,14 +89,14 @@ export default function InputBox({
       if (asNum < 1) {
         setInputValue('1');
         setWarning('INVALID_NUMBER_VALUE');
-        onChange(1);
+        debouncedEmit(1);
         return;
       }
 
       // 4) valid ≥ 1
       setInputValue(raw);
       setWarning(null);
-      onChange(asNum);
+      debouncedEmit(asNum);
     } else {
       // TEXT MODE
       setInputValue(raw);
@@ -101,7 +106,7 @@ export default function InputBox({
       } else {
         setWarning(null);
       }
-      onChange(raw);
+      debouncedEmit(raw);
     }
   };
 
