@@ -55,7 +55,12 @@ export async function loadFont(fontFamily: string): Promise<Font> {
   return font;
 }
 
-export function svgPathData(font: Font, textSettings: TextSettings): string {
+export function svgPathData(
+  font: Font,
+  textSettings: TextSettings,
+  dx = 0,
+  dy = 0,
+): string {
   const { text, fontSize } = textSettings;
 
   const path = font.getPath(text, 0, fontSize, fontSize); // x = 0, y = baseline

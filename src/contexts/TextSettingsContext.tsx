@@ -116,7 +116,7 @@ export function TextSettingsProvider({ children }: { children: ReactNode }) {
       fontSizeSetter,
       fontVariantSetter,
     }),
-    [settings, textSetter, fontFamilySetter, fontSizeSetter, fontVariantSetter],
+    [settings],
   );
 
   return (
