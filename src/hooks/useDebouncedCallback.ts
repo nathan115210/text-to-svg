@@ -9,7 +9,7 @@ export function useDebouncedCallback<Args extends unknown[]>(
   fn: (...args: Args) => void,
   delay = 300,
 ) {
-  const timer = useRef<NodeJS.Timeout | null>(null);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   return useCallback(
     (...args: Args) => {

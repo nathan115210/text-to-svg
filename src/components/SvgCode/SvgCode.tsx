@@ -1,7 +1,6 @@
 'use client';
 import './SvgCode.scss';
 import React from 'react';
-import 'opentype.js';
 import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { useSvgBuild } from '@/hooks/useSvgPath';
 import { useClipboard } from '@/hooks/useClipboard';
