@@ -5,7 +5,7 @@ import { useCallback, useState } from 'react';
 /**
  * useClipboard
  * • copy(text) → Promise<boolean>
- * • copied     → true for `feedbackMs` ms after a successful copy
+ * • copied → true for `feedbackMs` ms after a successful copy
  * Works only in browsers that support `navigator.clipboard.writeText`.
  * Logs a warning otherwise.
  */

@@ -9,7 +9,7 @@ import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 export default function SvgPreview() {
   const { settings } = useTextSettings();
   const svgState = useSvgBuild(settings);
-  console.log('svgState', svgState);
+
   if (svgState.phase === 'loading')
     return <Skeleton variant={SkeletonType.Panel} />;
 

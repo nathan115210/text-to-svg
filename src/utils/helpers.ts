@@ -1,6 +1,6 @@
 import opentype, { Font } from 'opentype.js';
 import { createStore, get, set } from 'idb-keyval';
-import { FontVariant, type TextSettings } from '@/types/types';
+import { FontVariant } from '@/types/types';
 
 export const firstLetterToUpperCase = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
@@ -53,18 +53,6 @@ export async function loadFont(fontFamily: string): Promise<Font> {
   // save new fetched font to in-memory cache
   fontsCache.set(key, font);
   return font;
-}
-
-export function svgPathData(
-  font: Font,
-  textSettings: TextSettings,
-  dx = 0,
-  dy = 0,
-): string {
-  const { text, fontSize } = textSettings;
-
-  const path = font.getPath(text, 0, fontSize, fontSize); // x = 0, y = baseline
-  return path.toPathData(2); // 2-decimal precision
 }
 
 export const fontVariantMap: Record<FontVariant, number> = {
