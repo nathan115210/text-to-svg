@@ -60,3 +60,13 @@ export const fontVariantMap: Record<FontVariant, number> = {
   bold: 700,
   light: 300,
 } as const;
+
+// Helper function to trigger a download of a Blob
+export function triggerDownload(blob: Blob, filename: string) {
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
+}

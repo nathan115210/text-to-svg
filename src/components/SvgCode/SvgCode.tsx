@@ -5,6 +5,7 @@ import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { useSvgBuild } from '@/hooks/useSvgPath';
 import { useClipboard } from '@/hooks/useClipboard';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
+import { triggerDownload } from '@/utils/helpers';
 
 export default function SvgCode() {
   const { settings } = useTextSettings();
@@ -39,8 +40,14 @@ export default function SvgCode() {
         <button className="copy-button" onClick={() => copy(svgState.svg)}>
           {copied ? 'Copied!' : 'Copy To Clipboard'}{' '}
         </button>
-        <button>Download SVG</button>
+        <button onClick={() => downloadSVG(svgState.svg)}>Download SVG</button>
       </div>
     </div>
   );
 }
+
+//Helper
+const downloadSVG = (svgData: string) => {
+  const blob = new Blob([svgData], { type: 'image/svg+xml' });
+  triggerDownload(blob, 'text-to-svg.svg');
+};
