@@ -1,11 +1,21 @@
+@use '@/styles/core/mixins' as mix;
+
 .page-container {
   display: grid;
-  grid-template-columns: var(--sidebar-width) 1fr; // sidebar width + main
-  grid-template-areas: 'sidebar main';
   height: 100vh;
+  grid-template-columns: 1fr; // full width on small screens
+  grid-template-areas: 'main'; // only main area
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr; // full width on small screens
-    grid-template-areas: 'main'; // only main area
+  .sideBar,
+  .svg-panel {
+    padding: mix.space(4);
+  }
+  /* .preview-container,
+  .settings-group {
+    padding: mix.space(3);
+  }*/
+  @media (min-width: 768px) {
+    grid-template-columns: var(--sidebar-width) 1fr; // sidebar width + main
+    grid-template-areas: 'sidebar main';
   }
 }

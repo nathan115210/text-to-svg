@@ -3,13 +3,8 @@
 .settings-group {
   display: flex;
   flex-direction: column;
-  padding: mix.space(2);
   & > ul {
     list-style: none;
-  }
-
-  .heading {
-    font-size: 1.25rem;
   }
 
   .listItem-group {

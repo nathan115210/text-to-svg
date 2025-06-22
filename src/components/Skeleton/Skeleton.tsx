@@ -3,7 +3,7 @@ import React from 'react';
 
 export enum SkeletonType {
   Text = 'text',
-  Image = 'image',
+  Panel = 'panel',
   Button = 'button',
   Card = 'card',
   Circle = 'circle',

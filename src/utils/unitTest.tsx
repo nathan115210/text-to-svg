@@ -3,8 +3,7 @@
 import React, { useMemo, useEffect, useRef, useState } from 'react';
 import { vi } from 'vitest';
 import * as TextSettingsContextModule from '@/contexts/TextSettingsContext'; // ✅ ES-module import
-import { SetterType, FontVariant } from '@/utils/types';
-import type { Action } from '@/contexts/TextSettingsContext';
+import { SetterType, FontVariant, Action } from '@/types/types';
 
 export const FakeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
