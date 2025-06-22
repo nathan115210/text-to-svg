@@ -9,8 +9,6 @@ import ResponsiveSettingsPanel from '@/components/SettingsGroup/ResponsiveSettin
 function SettingsList() {
   return (
     <div className={'settings-group'}>
-      <h1 className={'heading'}>Settings</h1>
-
       <ul className={'listItem-group'}>
         <li>
           <SetFontFamily label="Font Family" />

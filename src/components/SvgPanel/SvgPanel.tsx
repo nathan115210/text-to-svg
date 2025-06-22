@@ -4,10 +4,8 @@ import SvgCode from '@/components/SvgCode/SvgCode';
 export default function SvgPanel() {
   return (
     <div className="svg-panel">
-      {/* left: live preview - START */}
+      {/* left: live preview */}
       <SvgPreview />
-      {/* left: live preview - END */}
-
       {/* right: code + buttons */}
       <SvgCode />
     </div>

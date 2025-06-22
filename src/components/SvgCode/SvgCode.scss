@@ -1,11 +1,12 @@
+@use '@/styles/core/mixins' as mix;
+
 .code-col {
   display: flex;
   flex-direction: column;
+  gap: mix.space(3);
 
   .code-box {
     flex: 1;
-    height: 100%;
-    max-height: 15rem;
     resize: none;
     background: #f9fafb;
     border: 1px solid #d1d5db;
@@ -27,18 +28,19 @@
   }
 
   .btn-row {
-    margin-top: 0.75rem;
     display: flex;
     gap: 0.75rem;
+    flex-flow: wrap;
 
     button {
+      flex: 1 0 100%;
       padding: 0.5rem 1rem;
       border-radius: 0.375rem;
       border: none;
-      background: #111827;
+      background: var(--field-bg);
       color: #fff;
       cursor: pointer;
-      font-size: 0.875rem;
+      font-size: 1rem;
       transition: background 0.2s;
 
       &:hover:not(:disabled) {
@@ -47,6 +49,13 @@
       &:disabled {
         opacity: 0.5;
         cursor: not-allowed;
+      }
+    }
+
+    @media (min-width: 768px) {
+      justify-content: flex-end;
+      button {
+        flex: 1 0 auto;
       }
     }
   }
