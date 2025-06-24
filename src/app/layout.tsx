@@ -22,13 +22,13 @@ export const metadata: Metadata = {
   },
   description:
     'Free online tool to turn any text into scalable SVG files. Choose fonts, size, colour and download instantly.',
-  metadataBase: new URL('https://text-to-svg.com'),
+  metadataBase: new URL('https://wow-text-to-svg.vercel.app/'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
-    url: 'https://text-to-svg-delta.vercel.app/',
+    url: 'https://https://wow-text-to-svg.vercel.app/',
     title: 'Text-to-SVG',
     description:
       'Turn any text into beautiful SVG. Adjust font, size and colour, preview live, download or copy code.',
