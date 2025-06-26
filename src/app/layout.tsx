@@ -1,5 +1,5 @@
 import ClientIsland from '@/contexts/ClientIsland';
-
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata } from 'next';
 import React from 'react';
 import { Geist, Geist_Mono } from 'next/font/google';
@@ -64,7 +64,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ClientIsland>{children}</ClientIsland>
+        <ClientIsland>
+          {children}
+          <SpeedInsights />
+        </ClientIsland>
       </body>
     </html>
   );

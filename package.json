@@ -12,6 +12,7 @@
     "test:watch": "vitest watch"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^1.2.0",
     "idb-keyval": "^6.2.2",
     "mini-svg-data-uri": "^1.4.4",
     "next": "15.3.3",
