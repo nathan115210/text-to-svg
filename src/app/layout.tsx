@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    url: 'https://https://wow-text-to-svg.vercel.app/',
+    url: 'https://wow-text-to-svg.vercel.app/',
     title: 'Text-to-SVG',
     description:
       'Turn any text into beautiful SVG. Adjust font, size and colour, preview live, download or copy code.',
