@@ -23,6 +23,14 @@ $trigger-height: 2rem;
   z-index: 999;
   padding-left: mix.space(4);
 
+  &.hide-trigger{
+    width:100vw;
+    left:0;
+    display: flex;
+    padding-left:0;
+    border:none;
+
+  }
   &.open {
     transform: translateY(0);
   }

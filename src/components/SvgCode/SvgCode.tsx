@@ -1,18 +1,22 @@
 'use client';
 import './SvgCode.scss';
-import React from 'react';
+import React, { useState } from 'react';
 import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { useSvgBuild } from '@/hooks/useSvgPath';
 import { useClipboard } from '@/hooks/useClipboard';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
 import { useDownload } from '@/hooks/useDownload';
+import { Cta } from '@/components/Cta/Cta';
+import BottomSheetModal from '@/components/BottomSheetModal/BottomSheetModal';
+import PresetExportPanel from '@/components/PresetExpoertPanel/PresetExpoertPanel';
 
 export default function SvgCode() {
   const { settings } = useTextSettings();
   const svgState = useSvgBuild(settings);
   const { copy, copied } = useClipboard();
   const { isDownloaded, download } = useDownload();
-
+  const [openExportModal, setOpenExportModal] = useState(false);
+  console.log('openExportModal', openExportModal);
   if (svgState.phase === 'loading')
     return (
       <div className="code-col">
@@ -38,12 +42,21 @@ export default function SvgCode() {
     <div className={`code-col`}>
       <textarea readOnly className="code-box" value={svgState.svg} />
       <div className="btn-row">
-        <button className="copy-button" onClick={() => copy(svgState.svg)}>
+        <Cta onClick={() => copy(svgState.svg)}>
           {`Copy To Clipboard${copied ? ' ✅' : ''}`}
-        </button>
-        <button onClick={() => download(svgState.svg)}>
+        </Cta>
+        <Cta onClick={() => download(svgState.svg)}>
           {`Download SVG ${isDownloaded ? ' ✅' : ''}`}
-        </button>
+        </Cta>
+        <Cta onClick={() => setOpenExportModal(true)}>Export Presets</Cta>
+        {/*Export Presets panel*/}
+        <BottomSheetModal
+          defaultOpen={openExportModal}
+          onClose={() => setOpenExportModal(false)}
+          hideTrigger
+        >
+          <PresetExportPanel />
+        </BottomSheetModal>
       </div>
     </div>
   );
