@@ -9,7 +9,7 @@ import { useEscapeKey } from '@/hooks/useEscapeKey';
 
 const BottomSheetModal = ({
   children,
-  defaultOpen,
+  defaultOpen = false,
   onClose,
   hideTrigger,
 }: {
@@ -18,7 +18,7 @@ const BottomSheetModal = ({
   onClose?: () => void;
   hideTrigger?: boolean;
 }) => {
-  const [open, setOpen] = useState(defaultOpen ?? false);
+  const [open, setOpen] = useState<boolean>(defaultOpen);
   const sheetRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
