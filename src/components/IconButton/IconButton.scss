@@ -11,7 +11,7 @@
 
   // on hover just shift icon color
   &:hover .iconButton__icon {
-    color: var(--field-hover-border);
+    color: var(--field-fg);
   }
 
   &:focus-visible {
