@@ -16,7 +16,6 @@ export default function SvgCode() {
   const { copy, copied } = useClipboard();
   const { isDownloaded, download } = useDownload();
   const [openExportModal, setOpenExportModal] = useState(false);
-  console.log('openExportModal', openExportModal);
   if (svgState.phase === 'loading')
     return (
       <div className="code-col">

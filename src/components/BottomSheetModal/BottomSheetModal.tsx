@@ -18,8 +18,7 @@ const BottomSheetModal = ({
   onClose?: () => void;
   hideTrigger?: boolean;
 }) => {
-  const [open, setOpen] = useState(defaultOpen);
-  console.log('open', open);
+  const [open, setOpen] = useState(defaultOpen ?? false);
   const sheetRef = useRef<HTMLDivElement>(null);
 
   const handleClose = () => {
