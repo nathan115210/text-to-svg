@@ -31,3 +31,30 @@
     @error "The Darkmode mixin must be used with a selector.";
   }
 }
+
+/// Reset all native button styles for a custom-styled button
+/// Usage: @include mix.reset-button;
+
+@mixin reset-button {
+  // Remove default padding, border, background
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+
+  // Reset typography and alignment
+  font: inherit;
+  color: inherit;
+  line-height: inherit;
+  text-align: inherit;
+
+  // Clean up box-model & interactions
+  box-sizing: border-box;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+
+  // Disable unneeded user-select on buttons
+  user-select: none;
+}

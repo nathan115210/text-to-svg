@@ -70,3 +70,34 @@ export function triggerDownload(blob: Blob, filename: string) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+/**
+ * Take a raw SVG string (with any width/height/viewBox),
+ * strip out the outer <svg> wrapper, and re-wrap it with
+ * the given dimensions.
+ */
+export function generateSvgBlob(
+  rawSvg: string,
+  width: number,
+  height: number,
+): Blob {
+  // 1. grab the inner content of the incoming SVG
+  //    everything between the opening <svg…> and closing </svg>
+  const match = rawSvg.match(/<svg[^>]*>([\s\S]*?)<\/svg>/i);
+  const inner = match ? match[1] : rawSvg;
+
+  // 2. build a fresh SVG with new size + viewBox
+  const svg = `
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="${width}"
+      height="${height}"
+      viewBox="0 0 ${width} ${height}"
+    >
+      ${inner}
+    </svg>
+  `.trim();
+
+  // 3. return a Blob you can download
+  return new Blob([svg], { type: 'image/svg+xml' });
+}

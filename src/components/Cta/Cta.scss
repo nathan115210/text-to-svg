@@ -1,0 +1,73 @@
+@use '@/styles/core/mixins' as mix;
+@use '@/styles/core/variables' as variables;
+
+.cta {
+  // Base reset & layout
+  @include mix.reset-button;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  @media (max-width: 768px) {
+    width: 100%;
+
+  }
+
+  // Variants
+  &--primary {
+    background: var(--field-bg);
+    color: #fff;
+
+    &:hover:not(&--disabled) {
+      background: #374151;
+    }
+  }
+
+  &--secondary {
+    background: #374151;
+
+    &:hover:not(&--disabled) {
+      background-color: lighten(variables.$color-bg, 0.1);
+    }
+  }
+
+  &--ghost {
+    background-color: transparent;
+    color: variables.$color-primary;
+
+    &:hover:not(&--disabled) {
+      background-color: rgba(variables.$color-primary, 0.1);
+    }
+  }
+
+  // Sizes
+  &--sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  &--md {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+  }
+
+  &--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+  }
+
+  // Disabled state
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &__external-icon{
+    margin-inline-start: 0.35rem;
+  }
+}
