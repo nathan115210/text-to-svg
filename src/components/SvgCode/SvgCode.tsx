@@ -5,12 +5,13 @@ import { useTextSettings } from '@/contexts/TextSettingsContext';
 import { useSvgBuild } from '@/hooks/useSvgPath';
 import { useClipboard } from '@/hooks/useClipboard';
 import Skeleton, { SkeletonType } from '@/components/Skeleton/Skeleton';
-import { triggerDownload } from '@/utils/helpers';
+import { useDownload } from '@/hooks/useDownload';
 
 export default function SvgCode() {
   const { settings } = useTextSettings();
   const svgState = useSvgBuild(settings);
   const { copy, copied } = useClipboard();
+  const { isDownloaded, download } = useDownload();
 
   if (svgState.phase === 'loading')
     return (
@@ -38,16 +39,12 @@ export default function SvgCode() {
       <textarea readOnly className="code-box" value={svgState.svg} />
       <div className="btn-row">
         <button className="copy-button" onClick={() => copy(svgState.svg)}>
-          {copied ? 'Copied!' : 'Copy To Clipboard'}{' '}
+          {`Copy To Clipboard${copied ? ' ✅' : ''}`}
         </button>
-        <button onClick={() => downloadSVG(svgState.svg)}>Download SVG</button>
+        <button onClick={() => download(svgState.svg)}>
+          {`Download SVG ${isDownloaded ? ' ✅' : ''}`}
+        </button>
       </div>
     </div>
   );
 }
-
-//Helper
-const downloadSVG = (svgData: string) => {
-  const blob = new Blob([svgData], { type: 'image/svg+xml' });
-  triggerDownload(blob, 'text-to-svg.svg');
-};
